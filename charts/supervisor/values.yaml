@@ -1,0 +1,203 @@
+image:
+  repository: ghcr.io/deepsquare-io/supervisor
+  # tag defaults to AppVersion
+  tag: ''
+
+imagePullPolicy: 'IfNotPresent'
+
+replicas: 1
+
+strategy:
+  type: RollingUpdate
+  rollingUpdate:
+    maxSurge: 1
+    maxUnavailable: 1
+
+annotations: {}
+labels: {}
+
+config:
+  ## Enable gRPC server authentication.
+  ##
+  ## If you are using a reverse proxy, disable HTTP or use TLS Passthrough.
+  tls:
+    enable: false
+    key: /tls/tls.key
+    cert: /tls/tls.crt
+
+  provider:
+    ## The provider private key (hexadecimal format)
+    ##
+    ## This is extremely confidential. DO NOT CHECK ON CVS.
+    privateKeyRef:
+      secretName: provider-wallet-secret
+      key: wallet-private-key
+
+  metascheduler:
+    endpoint: 'https://testnet.deepsquare.run/rpc'
+    smartContract: '0x7a943eb620E9D0a2994b15E76fE9Bb1DA65c28F0'
+
+  oracle:
+    endpoint: ''
+    tls:
+      enable: false
+      ca: /oracletls/ca.crt
+      serverHostOverride: ''
+
+  slurm:
+    ## Set the SSH credentials.
+    ##
+    ## The admin user is either the root user, the SlurmUser (see slurm.conf) or
+    ## a SLURM administrator.
+    ssh:
+      adminUser: slurm
+      address: slurm-login:22
+
+      ## The private key used to login and impersonate.
+      ##
+      ## You should have installed the `provider-ssh-authorized-keys` on the
+      ## login nodes as a way to fetch the public key of the supervisor.
+      ##
+      ## We expect the value of `key` to be a one line base64 encoded value.
+      ##
+      ## Example:
+      ##
+      ## stringData:
+      ##   ssh-private-key: <base64 encoded value>
+      ##
+      ## OR:
+      ##
+      ## data:
+      ##   ssh-private-key: <double base64 encoded value>
+      privateKeyRef:
+        secretName: supervisor-ssh-key-secret
+        key: ssh-private-key
+
+    ## Set the paths on the login node.
+    ##
+    ## To avoid PATH env poisoning, we suggest to set absolute path to the slurm executables.
+    paths:
+      sbatch: /usr/bin/sbatch
+      scancel: /usr/bin/scancel
+      squeue: /usr/bin/squeue
+      scontrol: /usr/bin/scontrol
+
+  ## The specifications of the cluster
+  ##
+  ## nodes: the total number of nodes reported by SLURM
+  ## cpus: the total number of cpus reported by SLURM
+  ## gpus: the total number of gpus reported by SLURM
+  ## memory: the total number of memory (MB) reported by SLURM
+  spec:
+    nodes: 1
+    cpus: 1
+    gpus: 0
+    memory: 1000
+
+resources:
+  {}
+  # requests:
+  #   cpu: '100m'
+  #   memory: '256Mi'
+  # limits:
+  #   memory: '1Gi'
+
+# Extra volume mounts
+volumeMounts:
+  []
+  # - name: certs
+  #   mountPath: /tls
+  # - name: oracletls
+  #   mountPath: /oracletls
+
+# Extra volumes
+volumes:
+  []
+  # - name: certs
+  #   secret:
+  #     secretName: cert-secret
+  #     defaultMode: 384 # 0600
+  # - name: oracletls
+  #   secret:
+  #     secretName: oracletls
+
+## Use an alternate scheduler.
+## ref: https://kubernetes.io/docs/tasks/administer-cluster/configure-multiple-schedulers/
+##
+schedulerName: ''
+
+podSecurityContext:
+  runAsUser: 1000
+
+securityContext:
+  capabilities:
+    drop: [ALL]
+  readOnlyRootFilesystem: true
+  runAsNonRoot: true
+  runAsUser: 1000
+
+# How long to wait to stop gracefully
+terminationGracePeriod: 10
+
+imagePullSecrets: {}
+
+nodeSelector: {}
+tolerations: []
+
+livenessProbe:
+  failureThreshold: 5
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  timeoutSeconds: 30
+
+readinessProbe:
+  failureThreshold: 5
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  timeoutSeconds: 30
+
+initContainers: []
+
+service:
+  enabled: true
+  type: ClusterIP
+
+extra:
+  []
+  # - apiVersion: cert-manager.io/v1
+  #   kind: Certificate
+  #   metadata:
+  #     name: supervisor.example.com-cert
+  #   spec:
+  #     secretName: supervisor.example.com-secret
+  #     issuerRef:
+  #       name: production-cluster-issuer
+  #       kind: ClusterIssuer
+  #     commonName: supervisor.example.com
+  #     subject:
+  #       countries: [CH]
+  #       localities: [Zug]
+  #       organizationalUnits: [IT]
+  #       organizations: [DeepSquare Association]
+  #       postalCodes: ['6300']
+  #       provinces: [Zug]
+  #       streetAddresses: [Gotthardstrasse 26]
+  #     dnsNames:
+  #       - supervisor.example.com
+
+  # - apiVersion: traefik.containo.us/v1alpha1
+  #   kind: IngressRoute
+  #   metadata:
+  #     name: supervisor-https
+  #   spec:
+  #     entryPoints:
+  #       - websecure
+  #     routes:
+  #       - kind: Rule
+  #         match: Host(`supervisor.example.com`) && Headers(`Content-Type`, `application/grpc`)
+  #         services:
+  #           - name: argocd-server
+  #             port: 80
+  #             scheme: h2c
+  #     tls:
+  #       secretName: supervisor.example.com-secret
