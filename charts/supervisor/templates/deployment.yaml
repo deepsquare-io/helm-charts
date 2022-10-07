@@ -81,12 +81,14 @@ spec:
                 name: "{{ template "supervisor.name" $ }}-env"
           env:
             - name: SLURM_SSH_PRIVATE_KEY
-              secretKeyRef:
-                name: "{{ .Values.config.slurm.ssh.privateKeyRef.secretName }}"
-                key: "{{ .Values.config.slurm.ssh.privateKeyRef.key }}"
-                optional: false
+              valueFrom:
+                secretKeyRef:
+                  name: "{{ .Values.config.slurm.ssh.privateKeyRef.secretName }}"
+                  key: "{{ .Values.config.slurm.ssh.privateKeyRef.key }}"
+                  optional: false
             - name: ETH_PRIVATE_KEY
-              secretKeyRef:
-                name: "{{ .Values.config.provider.privateKeyRef.secretName }}"
-                key: "{{ .Values.config.provider.privateKeyRef.key }}"
-                optional: false
+              valueFrom:
+                secretKeyRef:
+                  name: "{{ .Values.config.provider.privateKeyRef.secretName }}"
+                  key: "{{ .Values.config.provider.privateKeyRef.key }}"
+                  optional: false
