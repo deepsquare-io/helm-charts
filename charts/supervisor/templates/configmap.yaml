@@ -14,11 +14,11 @@ data:
   METASCHEDULER_ENDPOINT: "{{ .Values.config.metascheduler.endpoint }}"
   METASCHEDULER_SMART_CONTRACT: "{{ .Values.config.metascheduler.smartContract }}"
 
-  ORACLE_ENDPOINT: "{{ .Values.config.oracle.endpoint }}"
-  ORACLE_TLS_ENABLE: "{{ .Values.config.oracle.tls.enable | ternary "true" "false" }}"
-{{- if .Values.config.oracle.tls.enable }}
-  ORACLE_CA: "{{ .Values.config.oracle.tls.ca }}"
-  ORACLE_SERVER_HOST_OVERRIDE: "{{ .Values.config.oracle.tls.serverHostOverride }}"
+  CUSTOMER_ENDPOINT: "{{ .Values.config.customer.endpoint }}"
+  CUSTOMER_TLS_ENABLE: "{{ .Values.config.customer.tls.enable | ternary "true" "false" }}"
+{{- if .Values.config.customer.tls.enable }}
+  CUSTOMER_CA: "{{ .Values.config.customer.tls.ca }}"
+  CUSTOMER_SERVER_HOST_OVERRIDE: "{{ .Values.config.customer.tls.serverHostOverride }}"
 {{- end }}
 
   SLURM_SSH_ADDRESS: "{{ .Values.config.slurm.ssh.address }}"
