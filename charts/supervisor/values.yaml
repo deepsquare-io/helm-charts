@@ -41,6 +41,9 @@ config:
     endpoint: ''
     tls:
       enable: false
+      # Ignore TLS verification. No need for tls.ca or tls.serverHostOverride when tls.insecure is enabled.
+      insecure: false
+      # No nee
       ca: /oracletls/ca.crt
       serverHostOverride: ''
 

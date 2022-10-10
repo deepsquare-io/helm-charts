@@ -17,6 +17,7 @@ data:
   CUSTOMER_ENDPOINT: "{{ .Values.config.customer.endpoint }}"
   CUSTOMER_TLS_ENABLE: "{{ .Values.config.customer.tls.enable | ternary "true" "false" }}"
 {{- if .Values.config.customer.tls.enable }}
+  CUSTOMER_TLS_INSECURE: "{{ .Values.config.customer.tls.insecure | ternary "true" "false" }}"
   CUSTOMER_CA: "{{ .Values.config.customer.tls.ca }}"
   CUSTOMER_SERVER_HOST_OVERRIDE: "{{ .Values.config.customer.tls.serverHostOverride }}"
 {{- end }}
