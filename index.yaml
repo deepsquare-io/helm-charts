@@ -2,6 +2,22 @@ apiVersion: v1
 entries:
   supervisor:
   - apiVersion: v2
+    appVersion: 1.0.0-alpha.5
+    created: "2022-10-20T15:12:14.452217942Z"
+    description: The DeepSquare Grid Supervisor for your cluster.
+    digest: d0278d6629ef537895ad1481451a5c6454f264f049185b6b597a595753b92f53
+    home: https://github.com/deepsquare-io/the-grid
+    maintainers:
+    - email: marc@squarefactory.io
+      name: Marc Nguyen
+    name: supervisor
+    sources:
+    - https://github.com/deepsquare-io/the-grid
+    type: application
+    urls:
+    - https://github.com/deepsquare-io/helm-charts/releases/download/chart-supervisor-0.1.5/supervisor-0.1.5.tgz
+    version: 0.1.5
+  - apiVersion: v2
     appVersion: 1.0.0-alpha.3
     created: "2022-10-10T18:59:29.73786209Z"
     description: The DeepSquare Grid Supervisor for your cluster.
@@ -81,4 +97,4 @@ entries:
     urls:
     - https://github.com/deepsquare-io/helm-charts/releases/download/chart-supervisor-0.1.0/supervisor-0.1.0.tgz
     version: 0.1.0
-generated: "2022-10-10T18:59:29.73788079Z"
+generated: "2022-10-20T15:12:14.452240042Z"
