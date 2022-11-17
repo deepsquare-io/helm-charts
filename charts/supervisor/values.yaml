@@ -34,7 +34,10 @@ config:
       key: wallet-private-key
 
   metascheduler:
-    endpoint: 'https://testnet.deepsquare.run/rpc'
+    endpoint:
+      rpc: 'https://testnet.deepsquare.run/rpc'
+      ws: 'wss://testnet.deepsquare.run/ws'
+
     smartContract: '0x7a943eb620E9D0a2994b15E76fE9Bb1DA65c28F0'
 
   customer:
