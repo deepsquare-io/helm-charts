@@ -13,6 +13,7 @@ data:
 
   METASCHEDULER_ENDPOINT_RPC: "{{ .Values.config.metascheduler.endpoint.rpc }}"
   METASCHEDULER_ENDPOINT_WS: "{{ .Values.config.metascheduler.endpoint.ws }}"
+  METASCHEDULER_SMART_CONTRACT: "{{ .Values.config.metascheduler.smartContract }}"
 
   CUSTOMER_ENDPOINT: "{{ .Values.config.customer.endpoint }}"
   CUSTOMER_TLS_ENABLE: "{{ .Values.config.customer.tls.enable | ternary "true" "false" }}"
