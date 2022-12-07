@@ -1,0 +1,139 @@
+image:
+  repository: ghcr.io/deepsquare-io/grid-logger
+  # tag defaults to AppVersion
+  tag: ''
+
+imagePullPolicy: 'IfNotPresent'
+
+replicas: 1
+
+updateStrategy:
+  type: RollingUpdate
+
+annotations: {}
+labels: {}
+
+config:
+  debug: true
+
+  ## Enable gRPC server authentication.
+  ##
+  ## If you are using a reverse proxy, disable HTTP or use TLS Passthrough.
+  tls:
+    enable: false
+    key: /tls/tls.key
+    cert: /tls/tls.crt
+
+db:
+  storageClassName: ''
+  accessModes: ['ReadWriteOnce']
+  size: 50Gi
+  selectorLabels: {}
+
+resources:
+  {}
+  # requests:
+  #   cpu: '100m'
+  #   memory: '256Mi'
+  # limits:
+  #   memory: '1Gi'
+
+# Extra volume mounts
+volumeMounts:
+  []
+  # - name: certs
+  #   mountPath: /tls
+  # - name: oracletls
+  #   mountPath: /oracletls
+
+# Extra volumes
+volumes:
+  []
+  # - name: certs
+  #   secret:
+  #     secretName: cert-secret
+  #     defaultMode: 384 # 0600
+  # - name: oracletls
+  #   secret:
+  #     secretName: oracletls
+
+## Use an alternate scheduler.
+## ref: https://kubernetes.io/docs/tasks/administer-cluster/configure-multiple-schedulers/
+##
+schedulerName: ''
+
+podSecurityContext:
+  runAsUser: 1000
+
+securityContext:
+  capabilities:
+    drop: [ALL]
+  readOnlyRootFilesystem: true
+  runAsNonRoot: true
+  runAsUser: 1000
+
+# How long to wait to stop gracefully
+terminationGracePeriod: 10
+
+imagePullSecrets: {}
+
+nodeSelector: {}
+tolerations: []
+
+livenessProbe:
+  failureThreshold: 5
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  timeoutSeconds: 30
+
+readinessProbe:
+  failureThreshold: 5
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  timeoutSeconds: 30
+
+initContainers: []
+
+service:
+  enabled: true
+  type: ClusterIP
+
+extra:
+  []
+  # - apiVersion: cert-manager.io/v1
+  #   kind: Certificate
+  #   metadata:
+  #     name: supervisor.example.com-cert
+  #   spec:
+  #     secretName: supervisor.example.com-secret
+  #     issuerRef:
+  #       name: production-cluster-issuer
+  #       kind: ClusterIssuer
+  #     commonName: supervisor.example.com
+  #     subject:
+  #       countries: [CH]
+  #       localities: [Zug]
+  #       organizationalUnits: [IT]
+  #       organizations: [DeepSquare Association]
+  #       postalCodes: ['6300']
+  #       provinces: [Zug]
+  #       streetAddresses: [Gotthardstrasse 26]
+  #     dnsNames:
+  #       - supervisor.example.com
+
+  # - apiVersion: traefik.containo.us/v1alpha1
+  #   kind: IngressRoute
+  #   metadata:
+  #     name: supervisor-https
+  #   spec:
+  #     entryPoints:
+  #       - websecure
+  #     routes:
+  #       - kind: Rule
+  #         match: Host(`supervisor.example.com`) && Headers(`Content-Type`, `application/grpc`)
+  #         services:
+  #           - name: argocd-server
+  #             port: 80
+  #             scheme: h2c
+  #     tls:
+  #       secretName: supervisor.example.com-secret

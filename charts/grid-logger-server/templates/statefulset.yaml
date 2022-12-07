@@ -1,0 +1,119 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: "{{ template "grid-logger-server.name" . }}"
+  labels:
+    app: "{{ template "grid-logger-server.name" . }}"
+spec:
+  selector:
+    matchLabels:
+      app: "{{ template "grid-logger-server.name" . }}"
+  replicas: {{ .Values.replicas }}
+  updateStrategy:
+{{ toYaml .Values.updateStrategy | trim | indent 4 }}
+  template:
+    metadata:
+      name: "{{ template "grid-logger-server.name" . }}"
+      labels:
+        app: "{{ template "grid-logger-server.name" . }}"
+{{- if .Values.labels }}
+{{ toYaml .Values.labels | indent 8 }}
+{{- end }}
+{{- if .Values.annotations }}
+      annotations:
+{{ toYaml .Values.annotations | indent 8 }}
+{{- end }}
+    spec:
+      {{- if .Values.schedulerName }}
+      schedulerName: "{{ .Values.schedulerName }}"
+      {{- end }}
+      securityContext:
+{{ toYaml .Values.podSecurityContext | indent 8 }}
+      {{- with .Values.tolerations }}
+      tolerations:
+{{ toYaml . | indent 8 }}
+      {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml . | indent 8 }}
+      {{- end }}
+      {{- with .Values.nodeAffinity }}
+      affinity:
+{{ toYaml . | indent 8 }}
+      {{- end }}
+      terminationGracePeriodSeconds: {{ .Values.terminationGracePeriod }}
+      {{- if .Values.imagePullSecrets }}
+      imagePullSecrets:
+{{ toYaml .Values.imagePullSecrets | indent 8 }}
+      {{- end }}
+      {{- if .Values.initContainers }}
+      initContainers:
+{{ toYaml .Values.initContainers | indent 8 }}
+      {{- end }}
+      {{- if .Values.dnsPolicy }}
+      dnsPolicy: "{{ .Values.dnsPolicy }}"
+      {{- end }}
+      {{- if .Values.dnsConfig }}
+      dnsConfig:
+{{ toYaml .Values.dnsConfig | indent 8 }}
+      {{- end }}
+      containers:
+        - name: "{{ template "grid-logger-server.name" . }}"
+          image: "{{ .Values.image.repository }}:{{ default .Chart.AppVersion .Values.image.tag }}"
+          imagePullPolicy: "{{ .Values.imagePullPolicy }}"
+          command:
+{{ toYaml .Values.command | indent 12 }}
+          ports:
+            - containerPort: 3000
+          livenessProbe:
+            exec:
+              command: ["/bin/grpc_health_probe", "-addr=:3000"]
+{{ toYaml .Values.livenessProbe | indent 12 }}
+          readinessProbe:
+            exec:
+              command: ["/bin/grpc_health_probe", "-addr=:3000"]
+{{ toYaml .Values.readinessProbe | indent 12 }}
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+          securityContext:
+{{ toYaml .Values.securityContext | indent 12 }}
+          envFrom:
+            - configMapRef:
+                name: "{{ template "grid-logger-server.name" $ }}-env"
+          volumeMounts:
+            - name: db
+              mountPath: /db
+              readOnly: false
+            {{- if .Values.volumeMounts }}
+{{ toYaml .Values.volumeMounts | indent 12 }}
+            {{- end }}
+        - name: envoy
+          image: registry-1.docker.io/envoyproxy/envoy:v1.24-latest
+          ports:
+            - containerPort: 9000
+              name: http
+          volumeMounts:
+            - name: envoy-config
+              mountPath: /etc/envoy
+              readOnly: yes
+      volumes:
+        - name: envoy-config
+          configMap:
+            name: "{{ template "grid-logger-server.name" $ }}-envoy-config"
+        {{- if .Values.volumes }}
+{{ toYaml .Values.volumes | indent 8 }}
+        {{- end }}
+  volumeClaimTemplates:
+    - metadata:
+        name: db
+      spec:
+        accessModes: {{ .Values.db.accessModes }}
+        storageClassName: "{{ .Values.db.storageClassName }}"
+        resources:
+          requests:
+            storage: {{ .Values.db.size }}
+        {{- with .Values.db.selectorLabels }}
+        selector:
+          matchLabels:
+{{ toYaml . | indent 12 }}
+        {{- end }}

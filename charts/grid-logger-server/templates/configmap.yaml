@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "{{ template "grid-logger-server.name" $ }}-env"
+  labels:
+    app: "{{ template "grid-logger-server.name" $ }}"
+data:
+  TLS_ENABLE: "{{ .Values.config.tls.enable | ternary "true" "false" }}"
+{{- if .Values.config.tls.enable }}
+  TLS_KEY: "{{ .Values.config.tls.key }}"
+  TLS_CERT: "{{ .Values.config.tls.cert }}"
+{{- end }}
+
+  STORAGE_PATH: "/db"
+
+  DEBUG: "{{ .Values.config.debug | ternary "true" "false" }}"
