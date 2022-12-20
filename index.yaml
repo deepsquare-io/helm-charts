@@ -2,6 +2,22 @@ apiVersion: v1
 entries:
   grid-logger-server:
   - apiVersion: v2
+    appVersion: 1.0.5
+    created: "2022-12-20T16:33:52.892814782Z"
+    description: The DeepSquare Grid Logger server to host on servers.
+    digest: 4d00caee22175fdc18cd63633a6ebcf2146df6240eea716f77d86fab027f5884
+    home: https://github.com/deepsquare-io/the-grid
+    maintainers:
+    - email: marc@squarefactory.io
+      name: Marc Nguyen
+    name: grid-logger-server
+    sources:
+    - https://github.com/deepsquare-io/the-grid
+    type: application
+    urls:
+    - https://github.com/deepsquare-io/helm-charts/releases/download/chart-grid-logger-server-0.1.1/grid-logger-server-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
     appVersion: 1.0.1
     created: "2022-12-07T18:00:34.598840952Z"
     description: The DeepSquare Grid Logger server to host on servers.
@@ -17,7 +33,44 @@ entries:
     urls:
     - https://github.com/deepsquare-io/helm-charts/releases/download/chart-grid-logger-server-0.1.0/grid-logger-server-0.1.0.tgz
     version: 0.1.0
+  sbatch-service:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2022-12-20T16:33:53.075939008Z"
+    dependencies:
+    - name: redis
+      repository: https://charts.bitnami.com/bitnami
+      version: 17.*
+    description: The SBatch hosting service.
+    digest: d7c833236cf817afa0f6406987956cfe5fe7ef442c77d5e7b54984b37d4e2eba
+    home: https://github.com/deepsquare-io/the-grid
+    maintainers:
+    - email: marc@squarefactory.io
+      name: Marc Nguyen
+    name: sbatch-service
+    sources:
+    - https://github.com/deepsquare-io/the-grid
+    type: application
+    urls:
+    - https://github.com/deepsquare-io/helm-charts/releases/download/chart-sbatch-service-0.1.1/sbatch-service-0.1.1.tgz
+    version: 0.1.1
   supervisor:
+  - apiVersion: v2
+    appVersion: 1.0.0-alpha.34
+    created: "2022-12-20T16:33:53.215359437Z"
+    description: The DeepSquare Grid Supervisor for your cluster.
+    digest: deed5f96cc438fd95c7540b8a89bc505eb5cece793462bba511aa9d075a9b0f1
+    home: https://github.com/deepsquare-io/the-grid
+    maintainers:
+    - email: marc@squarefactory.io
+      name: Marc Nguyen
+    name: supervisor
+    sources:
+    - https://github.com/deepsquare-io/the-grid
+    type: application
+    urls:
+    - https://github.com/deepsquare-io/helm-charts/releases/download/chart-supervisor-0.1.8/supervisor-0.1.8.tgz
+    version: 0.1.8
   - apiVersion: v2
     appVersion: 1.0.0-alpha.22
     created: "2022-11-17T13:09:55.728293222Z"
@@ -146,4 +199,4 @@ entries:
     urls:
     - https://github.com/deepsquare-io/helm-charts/releases/download/chart-supervisor-0.1.0/supervisor-0.1.0.tgz
     version: 0.1.0
-generated: "2022-12-07T18:00:34.598866352Z"
+generated: "2022-12-20T16:33:53.215394437Z"
