@@ -14,7 +14,7 @@ data:
   REDIS_SERVER_HOST_OVERRIDE: "{{ .Values.config.redis.tls.serverHostOverride }}"
 {{- end }}
 {{- else }}
-  REDIS_ADDRESS: "{{ printf "%s-headless" (include "sbatch-service.redis.fullname" $) }}"
+  REDIS_ADDRESS: "{{ printf "redis://%s-master:%d/0" (include "sbatch-service.redis.fullname" $) (.Values.redis.master.service.ports.redis | int) }}"
   REDIS_TLS_ENABLE: "false"
 {{- end }}
 
