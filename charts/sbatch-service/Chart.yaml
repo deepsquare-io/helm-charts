@@ -1,12 +1,17 @@
 apiVersion: v2
-name: supervisor
-description: The DeepSquare Grid Supervisor for your cluster.
+name: sbatch-service
+description: The SBatch hosting service.
 type: application
 home: https://github.com/deepsquare-io/the-grid
 sources:
   - https://github.com/deepsquare-io/the-grid
-version: 0.1.8
-appVersion: '1.0.0-alpha.34'
+version: 0.1.0
+appVersion: '0.1.0'
 maintainers:
   - name: Marc Nguyen
     email: marc@squarefactory.io
+
+dependencies:
+  - name: redis
+    version: 17.*
+    repository: https://charts.bitnami.com/bitnami

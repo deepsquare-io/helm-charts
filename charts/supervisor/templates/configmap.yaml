@@ -15,12 +15,12 @@ data:
   METASCHEDULER_ENDPOINT_WS: "{{ .Values.config.metascheduler.endpoint.ws }}"
   METASCHEDULER_SMART_CONTRACT: "{{ .Values.config.metascheduler.smartContract }}"
 
-  CUSTOMER_ENDPOINT: "{{ .Values.config.customer.endpoint }}"
-  CUSTOMER_TLS_ENABLE: "{{ .Values.config.customer.tls.enable | ternary "true" "false" }}"
-{{- if .Values.config.customer.tls.enable }}
-  CUSTOMER_TLS_INSECURE: "{{ .Values.config.customer.tls.insecure | ternary "true" "false" }}"
-  CUSTOMER_CA: "{{ .Values.config.customer.tls.ca }}"
-  CUSTOMER_SERVER_HOST_OVERRIDE: "{{ .Values.config.customer.tls.serverHostOverride }}"
+  SBATCH_ENDPOINT: "{{ .Values.config.sbatchService.endpoint }}"
+  SBATCH_TLS_ENABLE: "{{ .Values.config.sbatchService.tls.enable | ternary "true" "false" }}"
+{{- if .Values.config.sbatchService.tls.enable }}
+  SBATCH_TLS_INSECURE: "{{ .Values.config.sbatchService.tls.insecure | ternary "true" "false" }}"
+  SBATCH_CA: "{{ .Values.config.sbatchService.tls.ca }}"
+  SBATCH_SERVER_HOST_OVERRIDE: "{{ .Values.config.sbatchService.tls.serverHostOverride }}"
 {{- end }}
 
   SLURM_SSH_ADDRESS: "{{ .Values.config.slurm.ssh.address }}"

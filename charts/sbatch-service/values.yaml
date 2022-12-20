@@ -17,86 +17,16 @@ annotations: {}
 labels: {}
 
 config:
-  ## Enable gRPC server authentication.
-  ##
-  ## If you are using a reverse proxy, disable HTTP or use TLS Passthrough.
-  tls:
-    enable: false
-    key: /tls/tls.key
-    cert: /tls/tls.crt
+  debug: true
 
-  provider:
-    ## The provider private key (hexadecimal format)
-    ##
-    ## This is extremely confidential. DO NOT CHECK ON CVS.
-    privateKeyRef:
-      secretName: provider-wallet-secret
-      key: wallet-private-key
-
-  metascheduler:
-    endpoint:
-      rpc: 'https://testnet.deepsquare.run/rpc'
-      ws: 'wss://testnet.deepsquare.run/ws'
-
-    smartContract: '0x7a943eb620E9D0a2994b15E76fE9Bb1DA65c28F0'
-
-  sbatchService:
-    endpoint: 'sbatch.deepsquare.run:443'
+  redis:
+    # If is empty, will used the included redis and tls will be disabled
+    address: ''
     tls:
-      enable: true
+      enable: false
       insecure: false
       ca: /etc/ssl/certs/ca-certificates.crt
-      serverHostOverride: 'sbatch.deepsquare.run'
-
-  slurm:
-    ## Set the SSH credentials.
-    ##
-    ## The admin user is either the root user, the SlurmUser (see slurm.conf) or
-    ## a SLURM administrator.
-    ssh:
-      adminUser: slurm
-      address: slurm-login:22
-
-      ## The private key used to login and impersonate.
-      ##
-      ## You should have installed the `provider-ssh-authorized-keys` on the
-      ## login nodes as a way to fetch the public key of the supervisor.
-      ##
-      ## We expect the value of `key` to be a one line base64 encoded value.
-      ##
-      ## Example:
-      ##
-      ## stringData:
-      ##   ssh-private-key: <base64 encoded value>
-      ##
-      ## OR:
-      ##
-      ## data:
-      ##   ssh-private-key: <double base64 encoded value>
-      privateKeyRef:
-        secretName: supervisor-ssh-key-secret
-        key: ssh-private-key
-
-    ## Set the paths on the login node.
-    ##
-    ## To avoid PATH env poisoning, we suggest to set absolute path to the slurm executables.
-    paths:
-      sbatch: /usr/bin/sbatch
-      scancel: /usr/bin/scancel
-      squeue: /usr/bin/squeue
-      scontrol: /usr/bin/scontrol
-
-  ## The specifications of the cluster
-  ##
-  ## nodes: the total number of nodes reported by SLURM
-  ## cpus: the total number of cpus reported by SLURM
-  ## gpus: the total number of gpus reported by SLURM
-  ## memory: the total number of memory (MB) reported by SLURM
-  spec:
-    nodes: 1
-    cpus: 1
-    gpus: 0
-    memory: 1000
+      serverHostOverride: ''
 
 resources:
   {}
@@ -205,3 +135,23 @@ extra:
   #             scheme: h2c
   #     tls:
   #       secretName: supervisor.example.com-secret
+
+# See: https://github.com/bitnami/charts/blob/main/bitnami/redis/values.yaml
+redis:
+  enabled: true
+
+  image:
+    debug: true
+
+  auth:
+    enabled: false
+
+  master:
+    persistence:
+      enabled: false
+
+  replica:
+    replicaCount: 0
+
+  sentinel:
+    enabled: false

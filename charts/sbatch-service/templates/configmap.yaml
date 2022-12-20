@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "{{ template "sbatch-service.name" $ }}-env"
+  labels:
+    app: "{{ template "sbatch-service.name" $ }}"
+data:
+{{- if ne .Values.config.redis.address "" }}
+  REDIS_ADDRESS: "{{ .Values.config.redis.address }}"
+  REDIS_TLS_ENABLE: "{{ .Values.config.redis.tls.enable | ternary "true" "false" }}"
+{{- if .Values.config.redis.tls.enable }}
+  REDIS_TLS_INSECURE: "{{ .Values.config.redis.tls.insecure | ternary "true" "false" }}"
+  REDIS_CA: "{{ .Values.config.redis.tls.ca }}"
+  REDIS_SERVER_HOST_OVERRIDE: "{{ .Values.config.redis.tls.serverHostOverride }}"
+{{- end }}
+{{- else }}
+  REDIS_ADDRESS: "{{ printf "%s-headless" (include "sbatch-service.redis.fullname" $) }}"
+  REDIS_TLS_ENABLE: "false"
+{{- end }}
+
+  DEBUG: "{{ .Values.config.debug  | ternary "true" "false" }}"
