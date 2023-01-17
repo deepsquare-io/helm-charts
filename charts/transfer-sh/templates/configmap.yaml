@@ -1,0 +1,58 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "{{ template "transfer-sh.name" $ }}-env"
+  labels:
+    app: "{{ template "transfer-sh.name" $ }}"
+data:
+  LISTENER: :8080
+  PROFILE_LISTENER: :6060
+  FORCE_HTTPS: "false"
+{{- if .Values.config.tls.enable }}
+  TLS_LISTENER: :8443
+  TLS_PRIVATE_KEY: "{{ .Values.config.tls.key }}"
+  TLS_CERT_FILE: "{{ .Values.config.tls.cert }}"
+{{- end }}
+  TLS_LISTENER_ONLY: "false"
+
+  IP_WHITELIST: "{{ .Values.config.ip.whitelist | join "," }}"
+  IP_BLACKLIST: "{{ .Values.config.ip.blacklist | join "," }}"
+
+  TEMP_PATH: "{{ .Values.config.tmpPath }}"
+  WEB_PATH: "{{ .Values.config.webPath }}"
+  PROXY_PATH: "{{ .Values.config.proxy.path }}"
+  PROXY_PORT: "{{ .Values.config.proxy.port }}"
+
+{{- if eq .Values.config.provider "s3" }}
+  S3_REGION: "{{ .Values.config.s3.region }}"
+  S3_NO_MULTIPART: "{{ .Values.config.s3.noMultiPart }}"
+  S3_PATH_STYLE: "{{ .Values.config.s3.pathStyle }}"
+  S3_BUCKET: "{{ .Values.config.s3.bucket }}"
+{{- end }}
+
+{{- if eq .Values.config.provider "gdrive" }}
+  GDRIVE_CLIENT_JSON_FILEPATH: "/creds/gdrive/client.json"
+  GDRIVE_LOCAL_CONFIG_PATH: "{{ .Values.config.gdrive.localConfigPath }}"
+{{- if .Values.config.gdrive.chunkSize }}
+  GDRIVE_CHUNK_SIZE: "{{ .Values.config.gdrive.chunkSize }}"
+{{- end }}
+{{- end }}
+
+  BASEDIR: "{{ .Values.config.basedir }}"
+  LOG: "{{ .Values.config.log }}"
+  HOSTS: "{{ .Values.config.tls.hosts | join "," }}"
+  CORS_DOMAINS: "{{ .Values.config.corsDomains | join "," }}"
+  CLAMAV_HOST: "{{ .Values.config.clamavHost }}"
+{{- if .Values.config.rateLimit }}
+  RATE_LIMIT: "{{ .Values.config.rateLimit }}"
+{{- end }}
+{{- if .Values.config.maxUploadSize }}
+  MAX_UPLOAD_SIZE: "{{ .Values.config.maxUploadSize }}"
+{{- end }}
+{{- if .Values.config.purge.days }}
+  PURGE_DAYS: "{{ .Values.config.purge.days }}"
+{{- end }}
+{{- if .Values.config.purge.interval }}
+  PURGE_INTERVAL: "{{ .Values.config.purge.interval }}"
+{{- end }}
+  RANDOM_TOKEN_LENGTH: "{{ .Values.config.randomTokenLength }}"

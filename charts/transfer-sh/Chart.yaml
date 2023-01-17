@@ -1,0 +1,12 @@
+apiVersion: v2
+name: transfer-sh
+description: A self-hosted transfer.sh.
+type: application
+home: https://github.com/deepsquare-io/the-grid
+sources:
+  - https://github.com/deepsquare-io/the-grid
+version: 0.1.0
+appVersion: 'nightly-noroot'
+maintainers:
+  - name: Marc Nguyen
+    email: marc@squarefactory.io

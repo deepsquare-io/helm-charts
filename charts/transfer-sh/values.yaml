@@ -1,0 +1,195 @@
+image:
+  repository: registry-1.docker.io/dutchcoders/transfer.sh
+  # tag defaults to AppVersion
+  tag: ''
+
+imagePullPolicy: 'Always'
+
+replicas: 1
+
+strategy:
+  type: RollingUpdate
+  rollingUpdate:
+    maxSurge: 1
+    maxUnavailable: 1
+
+annotations: {}
+labels: {}
+
+config:
+  ## Enable gRPC server authentication.
+  ##
+  ## If you are using a reverse proxy, disable HTTP or use TLS Passthrough.
+  tls:
+    enable: false
+    ## Hosts to use for lets encrypt certificates.
+    ##
+    ## If you want to use TLS using lets encrypt certificates, set lets-encrypt-hosts to your domain, set tls-listener to :443 and enable force-https.
+    hosts: []
+    ## If you want to use TLS using your own certificates, set tls-listener to :443, force-https, tls-cert-file and tls-private-key.
+    key: /tls/tls.key
+    cert: /tls/tls.crt
+
+  ip:
+    ## List of ips allowed to connect to the service
+    whitelist: []
+    ## List of ips not allowed to connect to the service
+    blacklist: []
+
+  ## Path to temp folder
+  tmpPath: /tmp/
+  ## Path to static web files (for development or custom front end)
+  webPath: ''
+  ## Path storage for local/gdrive provider
+  basedir: '/tmp/'
+  ## Path to log file
+  log: ''
+  ## List of domains for CORS, setting it enable CORS
+  corsDomains: []
+  ## Request per minute
+  rateLimit: ''
+  ## Max upload size in kilobytes
+  maxUploadSize: ''
+
+  purge:
+    ## Number of days after the uploads are purged automatically
+    days: ''
+    ## Interval in hours to run the automatic purge for (not applicable to S3 and Storj)
+    interval: ''
+
+  randomTokenLength: 6
+
+  ## Which storage provider to use (s3, storj, gdrive or local)
+  provider: local
+
+  proxy:
+    ## Path prefix when service is run behind a proxy
+    path: ''
+    ## Port of the proxy when the service is run behind a proxy
+    port: ''
+
+  ## Host for clamav feature
+  clamavHost: ''
+
+  ## Google analytics key for the front end
+  googleAnalyticsKey:
+    secretName: ''
+    key: GA_KEY
+
+  ## User voice key for the front end
+  userVoiceKey:
+    secretName: ''
+    key: USERVOICE_KEY
+
+  s3:
+    credentials:
+      secretName: ''
+      accessKeyKey: AWS_ACCESS_KEY
+      secretKeyKey: AWS_SECRET_KEY
+    bucket: ''
+    region: eu-west-1
+    noMultiPart: false
+    pathStyle: false
+
+  storj:
+    credentials:
+      secretName: ''
+      accessKey: STORJ_ACCESS
+    bucket: ''
+
+  gdrive:
+    credentials:
+      secretName: ''
+      clientJsonKey: client.json
+    ## Path to store local transfer.sh config cache for gdrive provider
+    localConfigPath: ''
+    ## Chunk size for gdrive upload in megabytes, must be lower than available memory (8 MB)
+    chunkSize: ''
+
+resources:
+  {}
+  # requests:
+  #   cpu: '100m'
+  #   memory: '256Mi'
+  # limits:
+  #   memory: '1Gi'
+
+# Extra volume mounts
+volumeMounts:
+  []
+  # - name: certs
+  #   mountPath: /tls
+  # - name: oracletls
+  #   mountPath: /oracletls
+
+# Extra volumes
+volumes:
+  []
+  # - name: certs
+  #   secret:
+  #     secretName: cert-secret
+  #     defaultMode: 384 # 0600
+  # - name: oracletls
+  #   secret:
+  #     secretName: oracletls
+
+## Use an alternate scheduler.
+## ref: https://kubernetes.io/docs/tasks/administer-cluster/configure-multiple-schedulers/
+##
+schedulerName: ''
+
+podSecurityContext:
+  runAsUser: 1000
+
+securityContext:
+  capabilities:
+    drop: [ALL]
+  readOnlyRootFilesystem: true
+  runAsNonRoot: true
+  runAsUser: 1000
+
+# How long to wait to stop gracefully
+terminationGracePeriod: 10
+
+imagePullSecrets: {}
+
+nodeSelector: {}
+tolerations: []
+
+livenessProbe:
+  failureThreshold: 5
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  timeoutSeconds: 30
+
+readinessProbe:
+  failureThreshold: 5
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  timeoutSeconds: 30
+
+initContainers: []
+
+service:
+  enabled: true
+  type: ClusterIP
+
+ingress:
+  enabled: false
+  ingressClass: ''
+
+  annotations: {}
+
+  hosts:
+    []
+    # - squid.example.com
+
+  path: /
+
+  tls:
+    []
+    # - secretName: squid.example.com-secret
+    #   hosts:
+    #     - squid.example.com
+
+extra: []
