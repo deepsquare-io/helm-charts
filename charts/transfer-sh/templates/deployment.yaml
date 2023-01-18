@@ -132,8 +132,8 @@ spec:
 {{- if .Values.volumeMounts }}
 {{ toYaml .Values.volumeMounts | indent 12 }}
 {{- end }}
-{{- if .Values.config.gdrive.credentials.secretName }}
       volumes:
+{{- if .Values.config.gdrive.credentials.secretName }}
         - name: gdrive-creds
           secret:
             secretName: "{{ .Values.config.gdrive.credentials.secretName }}"
