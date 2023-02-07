@@ -202,6 +202,22 @@ entries:
   transfer-sh:
   - apiVersion: v2
     appVersion: nightly-noroot
+    created: "2023-02-07T17:51:40.462578885Z"
+    description: A self-hosted transfer.sh.
+    digest: a36f11bd860726646575011202cdabb69c9dfc2498f09307f5c07356461fb8e7
+    home: https://github.com/deepsquare-io/the-grid
+    maintainers:
+    - email: marc@squarefactory.io
+      name: Marc Nguyen
+    name: transfer-sh
+    sources:
+    - https://github.com/deepsquare-io/the-grid
+    type: application
+    urls:
+    - https://github.com/deepsquare-io/helm-charts/releases/download/chart-transfer-sh-0.1.3/transfer-sh-0.1.3.tgz
+    version: 0.1.3
+  - apiVersion: v2
+    appVersion: nightly-noroot
     created: "2023-02-03T17:51:19.525509088Z"
     description: A self-hosted transfer.sh.
     digest: 425f3ac959e76fa3230aadc0ad4a6ed8e9ad759bf54c5952cd5a6d5430031f00
@@ -248,4 +264,4 @@ entries:
     urls:
     - https://github.com/deepsquare-io/helm-charts/releases/download/chart-transfer-sh-0.1.0/transfer-sh-0.1.0.tgz
     version: 0.1.0
-generated: "2023-02-03T17:51:19.525544488Z"
+generated: "2023-02-07T17:51:40.462607385Z"
