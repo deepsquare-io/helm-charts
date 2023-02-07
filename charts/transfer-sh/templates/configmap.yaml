@@ -24,10 +24,11 @@ data:
   PROXY_PORT: "{{ .Values.config.proxy.port }}"
 
 {{- if eq .Values.config.provider "s3" }}
+  S3_ENDPOINT: "{{ .Values.config.s3.endpoint }}"
   S3_REGION: "{{ .Values.config.s3.region }}"
   S3_NO_MULTIPART: "{{ .Values.config.s3.noMultiPart }}"
   S3_PATH_STYLE: "{{ .Values.config.s3.pathStyle }}"
-  S3_BUCKET: "{{ .Values.config.s3.bucket }}"
+  BUCKET: "{{ .Values.config.s3.bucket }}"
 {{- end }}
 
 {{- if eq .Values.config.provider "gdrive" }}

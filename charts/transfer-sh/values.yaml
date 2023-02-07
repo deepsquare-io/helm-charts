@@ -86,6 +86,7 @@ config:
       secretName: ''
       accessKeyKey: AWS_ACCESS_KEY
       secretKeyKey: AWS_SECRET_KEY
+    endpoint: ''
     bucket: ''
     region: eu-west-1
     noMultiPart: false
