@@ -28,6 +28,10 @@ config:
       ca: /etc/ssl/certs/ca-certificates.crt
       serverHostOverride: ''
 
+  logger:
+    # Endpoint format is: host:port
+    endpoint: ''
+
 resources:
   {}
   # requests:
