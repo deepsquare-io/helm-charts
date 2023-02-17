@@ -3,6 +3,22 @@ entries:
   grid-logger-server:
   - apiVersion: v2
     appVersion: 1.0.7
+    created: "2023-02-17T22:11:25.356812105Z"
+    description: The DeepSquare Grid Logger server to host on servers.
+    digest: 83f75b2f68d643edd90d80ac4c2cf5255d268023862d1f43630d96831b484ca5
+    home: https://github.com/deepsquare-io/the-grid
+    maintainers:
+    - email: marc@squarefactory.io
+      name: Marc Nguyen
+    name: grid-logger-server
+    sources:
+    - https://github.com/deepsquare-io/the-grid
+    type: application
+    urls:
+    - https://github.com/deepsquare-io/helm-charts/releases/download/chart-grid-logger-server-0.1.3/grid-logger-server-0.1.3.tgz
+    version: 0.1.3
+  - apiVersion: v2
+    appVersion: 1.0.7
     created: "2023-02-17T15:08:42.058844403Z"
     description: The DeepSquare Grid Logger server to host on servers.
     digest: 13a87e89cab56e6526b1bb08d3e0011dd4991e6678c5abf8c605bbce93c8f524
@@ -336,4 +352,4 @@ entries:
     urls:
     - https://github.com/deepsquare-io/helm-charts/releases/download/chart-transfer-sh-0.1.0/transfer-sh-0.1.0.tgz
     version: 0.1.0
-generated: "2023-02-17T16:44:03.215897264Z"
+generated: "2023-02-17T22:11:25.356900006Z"
