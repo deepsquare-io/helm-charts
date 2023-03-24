@@ -17,6 +17,10 @@ annotations: {}
 labels: {}
 
 config:
+  ## Public address or address of the reverse proxy.
+  ##
+  ## This address is used by the SLURM plugins to know where to report job statuses.
+  publicAddress: 'supervisor.example.com:443'
   ## Enable gRPC server authentication.
   ##
   ## If you are using a reverse proxy, disable HTTP or use TLS Passthrough.

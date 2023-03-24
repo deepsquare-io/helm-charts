@@ -5,6 +5,7 @@ metadata:
   labels:
     app: "{{ template "supervisor.name" $ }}"
 data:
+  PUBLIC_ADDRESS: "{{ .Values.config.publicAddress }}"
   TLS_ENABLE: "{{ .Values.config.tls.enable | ternary "true" "false" }}"
 {{- if .Values.config.tls.enable }}
   TLS_KEY: "{{ .Values.config.tls.key }}"
