@@ -61,8 +61,9 @@ spec:
         - name: "{{ template "grid-logger-server.name" . }}"
           image: "{{ .Values.image.repository }}:{{ default .Chart.AppVersion .Values.image.tag }}"
           imagePullPolicy: "{{ .Values.imagePullPolicy }}"
-          command:
-{{ toYaml .Values.command | indent 12 }}
+          args:
+            - --secret-path
+            - /secret/secret.key
           ports:
             - containerPort: 3000
           livenessProbe:
@@ -84,6 +85,9 @@ spec:
             - name: db
               mountPath: /db
               readOnly: false
+            - name: grid-logger-secret
+              mountPath: /secret
+              readOnly: yes
             {{- if .Values.volumeMounts }}
 {{ toYaml .Values.volumeMounts | indent 12 }}
             {{- end }}
@@ -100,6 +104,13 @@ spec:
         - name: envoy-config
           configMap:
             name: "{{ template "grid-logger-server.name" $ }}-envoy-config"
+        - name: grid-logger-secret
+          secret:
+            secretName: {{ .Values.config.secret.secretName }}
+            defaultMode: 0600
+            items:
+              - key: {{ .Values.config.secret.secretKey }}
+                path: secret.key
         {{- if .Values.volumes }}
 {{ toYaml .Values.volumes | indent 8 }}
         {{- end }}

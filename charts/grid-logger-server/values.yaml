@@ -16,6 +16,10 @@ labels: {}
 config:
   debug: true
 
+  secret:
+    secretName: grid-logger-secret
+    secretKey: secret.key
+
   ## Enable gRPC server authentication.
   ##
   ## If you are using a reverse proxy, disable HTTP or use TLS Passthrough.
