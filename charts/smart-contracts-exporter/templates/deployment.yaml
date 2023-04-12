@@ -1,0 +1,102 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "{{ template "smart-contracts-exporter.name" . }}"
+  labels:
+    app: "{{ template "smart-contracts-exporter.name" . }}"
+spec:
+  selector:
+    matchLabels:
+      app: "{{ template "smart-contracts-exporter.name" . }}"
+  replicas: {{ .Values.replicas }}
+  strategy:
+{{ toYaml .Values.strategy | trim | indent 4 }}
+  template:
+    metadata:
+      name: "{{ template "smart-contracts-exporter.name" . }}"
+      labels:
+        app: "{{ template "smart-contracts-exporter.name" . }}"
+{{- if .Values.labels }}
+{{ toYaml .Values.labels | indent 8 }}
+{{- end }}
+{{- if .Values.annotations }}
+      annotations:
+{{ toYaml .Values.annotations | indent 8 }}
+{{- end }}
+    spec:
+      {{- if .Values.schedulerName }}
+      schedulerName: "{{ .Values.schedulerName }}"
+      {{- end }}
+      securityContext:
+{{ toYaml .Values.podSecurityContext | indent 8 }}
+      {{- with .Values.tolerations }}
+      tolerations:
+{{ toYaml . | indent 8 }}
+      {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml . | indent 8 }}
+      {{- end }}
+      {{- with .Values.nodeAffinity }}
+      affinity:
+{{ toYaml . | indent 8 }}
+      {{- end }}
+      terminationGracePeriodSeconds: {{ .Values.terminationGracePeriod }}
+      {{- if .Values.imagePullSecrets }}
+      imagePullSecrets:
+{{ toYaml .Values.imagePullSecrets | indent 8 }}
+      {{- end }}
+      {{- if .Values.initContainers }}
+      initContainers:
+{{ toYaml .Values.initContainers | indent 8 }}
+      {{- end }}
+      {{- if .Values.dnsPolicy }}
+      dnsPolicy: "{{ .Values.dnsPolicy }}"
+      {{- end }}
+      {{- if .Values.dnsConfig }}
+      dnsConfig:
+{{ toYaml .Values.dnsConfig | indent 8 }}
+      {{- end }}
+      containers:
+        - name: "{{ template "smart-contracts-exporter.name" . }}"
+          image: "{{ .Values.image.repository }}:{{ default .Chart.AppVersion .Values.image.tag }}"
+          imagePullPolicy: "{{ .Values.imagePullPolicy }}"
+          command:
+{{ toYaml .Values.command | indent 12 }}
+          ports:
+            - containerPort: 3000
+              name: http
+          livenessProbe:
+            httpGet:
+              path: /metrics
+              port: 3000
+{{ toYaml .Values.livenessProbe | indent 12 }}
+          readinessProbe:
+            tcpSocket:
+              port: 3000
+{{ toYaml .Values.readinessProbe | indent 12 }}
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+          securityContext:
+{{ toYaml .Values.securityContext | indent 12 }}
+          envFrom:
+            - configMapRef:
+                name: "{{ template "smart-contracts-exporter.name" $ }}-env"
+          volumeMounts:
+            - name: checkpoint-volume
+              mountPath: /checkpoint
+            {{- if .Values.volumeMounts }}
+{{ toYaml .Values.volumeMounts | indent 12 }}
+            {{- end }}
+      volumes:
+        {{- if .Values.config.checkpoint.persistence.enabled }}
+        - name: checkpoint-volume
+          persistentVolumeClaim:
+            claimName: {{ template "smart-contracts-exporter.name" $ }}-checkpoint
+        {{- else }}
+        - name: checkpoint-volume
+          emptyDir: {}
+        {{- end }}
+        {{- if .Values.volumes }}
+{{ toYaml .Values.volumes | indent 8 }}
+        {{- end }}

@@ -1,0 +1,177 @@
+image:
+  repository: ghcr.io/deepsquare-io/smart-contracts-exporter
+  # tag defaults to AppVersion
+  tag: ''
+
+imagePullPolicy: 'IfNotPresent'
+
+replicas: 1
+
+strategy:
+  type: RollingUpdate
+  rollingUpdate:
+    maxSurge: 1
+    maxUnavailable: 1
+
+annotations: {}
+labels: {}
+
+config:
+  debug: false
+
+  metascheduler:
+    smartContract: '0x4884D1d9c44B586Fe8164467674EfaC8269D7ab9'
+
+  avax:
+    endpoint:
+      rpc: 'https://testnet.deepsquare.run/rpc'
+      ws: 'wss://testnet.deepsquare.run/ws'
+
+  checkpoint:
+    persistence:
+      enabled: true
+      labels: {}
+      annotations: {}
+      finalizers:
+        - kubernetes.io/pvc-protection
+
+      # storageClassName: default
+      accessModes:
+        - ReadWriteOnce
+      size: 100Mi
+
+resources:
+  {}
+  # requests:
+  #   cpu: '100m'
+  #   memory: '256Mi'
+  # limits:
+  #   memory: '1Gi'
+
+# Extra volume mounts
+volumeMounts:
+  []
+  # - name: certs
+  #   mountPath: /tls
+  # - name: oracletls
+  #   mountPath: /oracletls
+
+# Extra volumes
+volumes:
+  []
+  # - name: certs
+  #   secret:
+  #     secretName: cert-secret
+  #     defaultMode: 384 # 0600
+  # - name: oracletls
+  #   secret:
+  #     secretName: oracletls
+
+## Use an alternate scheduler.
+## ref: https://kubernetes.io/docs/tasks/administer-cluster/configure-multiple-schedulers/
+##
+schedulerName: ''
+
+podSecurityContext:
+  runAsUser: 1000
+
+securityContext:
+  capabilities:
+    drop: [ALL]
+  readOnlyRootFilesystem: true
+  runAsNonRoot: true
+  runAsUser: 1000
+
+# How long to wait to stop gracefully
+terminationGracePeriod: 10
+
+imagePullSecrets: {}
+
+nodeSelector: {}
+tolerations: []
+
+livenessProbe:
+  failureThreshold: 5
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  timeoutSeconds: 30
+
+readinessProbe:
+  failureThreshold: 5
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  timeoutSeconds: 30
+
+initContainers: []
+
+service:
+  enabled: true
+  type: ClusterIP
+
+serviceMonitor:
+  ## If true, a ServiceMonitor CRD is created for a prometheus operator
+  ## https://github.com/coreos/prometheus-operator
+  ##
+  enabled: false
+  path: /metrics
+  labels: {}
+  interval: 1m
+  scheme: http
+  tlsConfig: {}
+  scrapeTimeout: 30s
+  relabelings: []
+  targetLabels: []
+
+extraExposePorts:
+  []
+  # - name: keycloak
+  #   port: 8080
+  #   targetPort: 8080
+  #   type: ClusterIP
+
+# overrides pod.spec.hostAliases in the grafana deployment's pods
+hostAliases:
+  []
+  # - ip: "1.2.3.4"
+  #   hostnames:
+  #     - "my.host.com"
+
+extra:
+  []
+  # - apiVersion: cert-manager.io/v1
+  #   kind: Certificate
+  #   metadata:
+  #     name: smart-contracts-exporter.example.com-cert
+  #   spec:
+  #     secretName: smart-contracts-exporter.example.com-secret
+  #     issuerRef:
+  #       name: production-cluster-issuer
+  #       kind: ClusterIssuer
+  #     commonName: smart-contracts-exporter.example.com
+  #     subject:
+  #       countries: [CH]
+  #       localities: [Zug]
+  #       organizationalUnits: [IT]
+  #       organizations: [DeepSquare Association]
+  #       postalCodes: ['6300']
+  #       provinces: [Zug]
+  #       streetAddresses: [Gotthardstrasse 26]
+  #     dnsNames:
+  #       - smart-contracts-exporter.example.com
+
+  # - apiVersion: traefik.containo.us/v1alpha1
+  #   kind: IngressRoute
+  #   metadata:
+  #     name: smart-contracts-exporter-https
+  #   spec:
+  #     entryPoints:
+  #       - websecure
+  #     routes:
+  #       - kind: Rule
+  #         match: Host(`smart-contracts-exporter.example.com`) && Headers(`Content-Type`, `application/grpc`)
+  #         services:
+  #           - name: argocd-server
+  #             port: 80
+  #             scheme: h2c
+  #     tls:
+  #       secretName: smart-contracts-exporter.example.com-secret

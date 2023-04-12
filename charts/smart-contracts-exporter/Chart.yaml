@@ -1,0 +1,12 @@
+apiVersion: v2
+name: smart-contracts-exporter
+description: The DeepSquare GRID prometheus exporter.
+type: application
+home: https://github.com/deepsquare-io/the-grid
+sources:
+  - https://github.com/deepsquare-io/the-grid
+version: 0.1.0
+appVersion: 'dev'
+maintainers:
+  - name: Marc Nguyen
+    email: marc@squarefactory.io

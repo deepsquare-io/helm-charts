@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "{{ template "smart-contracts-exporter.name" $ }}-env"
+  labels:
+    app: "{{ template "smart-contracts-exporter.name" $ }}"
+data:
+  METASCHEDULER_SMART_CONTRACT: "{{ .Values.config.metascheduler.smartContract }}"
+  AVAX_ENDPOINT_RPC: "{{ .Values.config.avax.endpoint.rpc }}"
+  AVAX_ENDPOINT_WS: "{{ .Values.config.avax.endpoint.ws }}"
+  CHECKPOINT_FILE: /checkpoint/checkpoint.bin
+
+  DEBUG: "{{ .Values.config.debug  | ternary "true" "false" }}"
