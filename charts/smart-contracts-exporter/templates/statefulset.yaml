@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: "{{ template "smart-contracts-exporter.name" . }}"
   labels:
@@ -8,9 +8,10 @@ spec:
   selector:
     matchLabels:
       app: "{{ template "smart-contracts-exporter.name" . }}"
+  serviceName: "{{ template "smart-contracts-exporter.name" . }}"
   replicas: {{ .Values.replicas }}
-  strategy:
-{{ toYaml .Values.strategy | trim | indent 4 }}
+  updateStrategy:
+{{ toYaml .Values.updateStrategy | trim | indent 4 }}
   template:
     metadata:
       name: "{{ template "smart-contracts-exporter.name" . }}"
@@ -100,3 +101,24 @@ spec:
         {{- if .Values.volumes }}
 {{ toYaml .Values.volumes | indent 8 }}
         {{- end }}
+  volumeClaimTemplates:
+    {{- if .Values.config.checkpoint.persistence.enabled }}
+    - metadata:
+        name: checkpoint-volume
+      spec:
+        accessModes:
+          {{- range .Values.config.checkpoint.persistence.accessModes }}
+          - {{ . | quote }}
+          {{- end }}
+        {{- with .Values.config.checkpoint.persistence.storageClassName }}
+        storageClassName: "{{ .Values.config.checkpoint.persistence.storageClassName }}"
+        {{- end }}
+        resources:
+          requests:
+            storage: {{ .Values.config.checkpoint.persistence.size | quote }}
+        {{- with .Values.config.checkpoint.persistence.selectorLabels }}
+        selector:
+          matchLabels:
+{{ toYaml . | indent 12 }}
+        {{- end }}
+    {{- end }}
