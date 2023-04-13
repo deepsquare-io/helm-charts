@@ -111,7 +111,7 @@ spec:
           - {{ . | quote }}
           {{- end }}
         {{- with .Values.config.checkpoint.persistence.storageClassName }}
-        storageClassName: "{{ .Values.config.checkpoint.persistence.storageClassName }}"
+        storageClassName: "{{ . }}"
         {{- end }}
         resources:
           requests:
