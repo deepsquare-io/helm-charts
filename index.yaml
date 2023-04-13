@@ -145,6 +145,22 @@ entries:
   smart-contracts-exporter:
   - apiVersion: v2
     appVersion: dev
+    created: "2023-04-13T17:35:01.46188084Z"
+    description: The DeepSquare GRID prometheus exporter.
+    digest: f88ecda80114659e2f2652e3b6cf9689c18dfef2f3edaf2423ca006d61790e7d
+    home: https://github.com/deepsquare-io/the-grid
+    maintainers:
+    - email: marc@squarefactory.io
+      name: Marc Nguyen
+    name: smart-contracts-exporter
+    sources:
+    - https://github.com/deepsquare-io/the-grid
+    type: application
+    urls:
+    - https://github.com/deepsquare-io/helm-charts/releases/download/chart-smart-contracts-exporter-0.2.0/smart-contracts-exporter-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v2
+    appVersion: dev
     created: "2023-04-13T14:27:44.189157378Z"
     description: The DeepSquare GRID prometheus exporter.
     digest: d08023142b90456105e72f3c0d0703c3e9354d72b858ab7f21b8fe2fe571f95a
@@ -417,4 +433,4 @@ entries:
     urls:
     - https://github.com/deepsquare-io/helm-charts/releases/download/chart-transfer-sh-0.1.0/transfer-sh-0.1.0.tgz
     version: 0.1.0
-generated: "2023-04-13T14:27:44.189310088Z"
+generated: "2023-04-13T17:35:01.462203718Z"
