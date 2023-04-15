@@ -5,6 +5,7 @@ metadata:
   labels:
     app: "{{ template "smart-contracts-exporter.name" $ }}"
 data:
+  PROMETHEUS_URL: "{{ .Values.config.prometheusURL }}"
   METASCHEDULER_SMART_CONTRACT: "{{ .Values.config.metascheduler.smartContract }}"
   AVAX_ENDPOINT_RPC: "{{ .Values.config.avax.endpoint.rpc }}"
   AVAX_ENDPOINT_WS: "{{ .Values.config.avax.endpoint.ws }}"

@@ -204,7 +204,7 @@ extra:
   #       - kind: Rule
   #         match: Host(`supervisor.example.com`) && Headers(`Content-Type`, `application/grpc`)
   #         services:
-  #           - name: argocd-server
+  #           - name: supervisor
   #             port: 80
   #             scheme: h2c
   #     tls:

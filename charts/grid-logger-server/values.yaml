@@ -109,13 +109,13 @@ extra:
   # - apiVersion: cert-manager.io/v1
   #   kind: Certificate
   #   metadata:
-  #     name: supervisor.example.com-cert
+  #     name: grid-logger.example.com-cert
   #   spec:
-  #     secretName: supervisor.example.com-secret
+  #     secretName: grid-logger.example.com-secret
   #     issuerRef:
   #       name: production-cluster-issuer
   #       kind: ClusterIssuer
-  #     commonName: supervisor.example.com
+  #     commonName: grid-logger.example.com
   #     subject:
   #       countries: [CH]
   #       localities: [Zug]
@@ -125,21 +125,21 @@ extra:
   #       provinces: [Zug]
   #       streetAddresses: [Gotthardstrasse 26]
   #     dnsNames:
-  #       - supervisor.example.com
+  #       - grid-logger.example.com
 
   # - apiVersion: traefik.containo.us/v1alpha1
   #   kind: IngressRoute
   #   metadata:
-  #     name: supervisor-https
+  #     name: grid-logger-https
   #   spec:
   #     entryPoints:
   #       - websecure
   #     routes:
   #       - kind: Rule
-  #         match: Host(`supervisor.example.com`) && Headers(`Content-Type`, `application/grpc`)
+  #         match: Host(`grid-logger.example.com`) && Headers(`Content-Type`, `application/grpc`)
   #         services:
   #           - name: argocd-server
   #             port: 80
   #             scheme: h2c
   #     tls:
-  #       secretName: supervisor.example.com-secret
+  #       secretName: grid-logger.example.com-secret

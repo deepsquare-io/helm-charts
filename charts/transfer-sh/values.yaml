@@ -185,14 +185,14 @@ ingress:
 
   hosts:
     []
-    # - squid.example.com
+    # - transfer.example.com
 
   path: /
 
   tls:
     []
-    # - secretName: squid.example.com-secret
+    # - secretName: transfer.example.com-secret
     #   hosts:
-    #     - squid.example.com
+    #     - transfer.example.com
 
 extra: []

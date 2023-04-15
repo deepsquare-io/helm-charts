@@ -19,6 +19,8 @@ labels: {}
 config:
   debug: false
 
+  prometheusURL: 'https://prometheus.example.com'
+
   metascheduler:
     smartContract: '0x4884D1d9c44B586Fe8164467674EfaC8269D7ab9'
 
@@ -138,42 +140,23 @@ hostAliases:
   #   hostnames:
   #     - "my.host.com"
 
-extra:
-  []
-  # - apiVersion: cert-manager.io/v1
-  #   kind: Certificate
-  #   metadata:
-  #     name: smart-contracts-exporter.example.com-cert
-  #   spec:
-  #     secretName: smart-contracts-exporter.example.com-secret
-  #     issuerRef:
-  #       name: production-cluster-issuer
-  #       kind: ClusterIssuer
-  #     commonName: smart-contracts-exporter.example.com
-  #     subject:
-  #       countries: [CH]
-  #       localities: [Zug]
-  #       organizationalUnits: [IT]
-  #       organizations: [DeepSquare Association]
-  #       postalCodes: ['6300']
-  #       provinces: [Zug]
-  #       streetAddresses: [Gotthardstrasse 26]
-  #     dnsNames:
-  #       - smart-contracts-exporter.example.com
+ingress:
+  enabled: false
+  ingressClass: ''
 
-  # - apiVersion: traefik.containo.us/v1alpha1
-  #   kind: IngressRoute
-  #   metadata:
-  #     name: smart-contracts-exporter-https
-  #   spec:
-  #     entryPoints:
-  #       - websecure
-  #     routes:
-  #       - kind: Rule
-  #         match: Host(`smart-contracts-exporter.example.com`) && Headers(`Content-Type`, `application/grpc`)
-  #         services:
-  #           - name: argocd-server
-  #             port: 80
-  #             scheme: h2c
-  #     tls:
-  #       secretName: smart-contracts-exporter.example.com-secret
+  annotations: {}
+
+  hosts:
+    []
+    # - smart-contracts-exporter.example.com
+
+  path: /
+
+  tls:
+    []
+    # - secretName: smart-contracts-exporter.example.com-secret
+    #   hosts:
+    #     - smart-contracts-exporter.example.com
+
+## Extra manifests
+extra: []

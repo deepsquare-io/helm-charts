@@ -5,7 +5,7 @@ type: application
 home: https://github.com/deepsquare-io/the-grid
 sources:
   - https://github.com/deepsquare-io/the-grid
-version: 0.2.1
+version: 0.3.0
 appVersion: 'dev'
 maintainers:
   - name: Marc Nguyen
