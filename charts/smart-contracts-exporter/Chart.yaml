@@ -5,8 +5,8 @@ type: application
 home: https://github.com/deepsquare-io/the-grid
 sources:
   - https://github.com/deepsquare-io/the-grid
-version: 0.3.0
-appVersion: 'dev'
+version: 0.3.1
+appVersion: '0.1.0'
 maintainers:
   - name: Marc Nguyen
     email: marc@squarefactory.io
