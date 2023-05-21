@@ -13,4 +13,7 @@ data:
 
   STORAGE_PATH: "/db"
 
+  PPROF_ENABLE: "{{ .Values.config.pprof.enable | ternary "true" "false" }}"
+  PPROF_LISTEN_ADDRESS: ":6060"
+
   DEBUG: "{{ .Values.config.debug | ternary "true" "false" }}"

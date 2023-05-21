@@ -66,6 +66,8 @@ spec:
             - /secret/secret.key
           ports:
             - containerPort: 3000
+            - containerPort: 6060
+              name: profiler
           livenessProbe:
             exec:
               command: ["/bin/grpc_health_probe", "-addr=:3000"]

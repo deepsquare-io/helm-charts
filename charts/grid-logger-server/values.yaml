@@ -28,6 +28,12 @@ config:
     key: /tls/tls.key
     cert: /tls/tls.crt
 
+  ## Enable Performance Profiler
+  ##
+  ## Use go tool pprof to use it. The port is :6060 and you must use kubectl proxy to access it.
+  pprof:
+    enable: true
+
 db:
   storageClassName: ''
   accessModes: ['ReadWriteOnce']
