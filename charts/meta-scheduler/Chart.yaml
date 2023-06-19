@@ -1,0 +1,12 @@
+apiVersion: v2
+name: meta-scheduler
+description: The DeepSquare Grid meta-scheduler.
+type: application
+home: https://github.com/deepsquare-io/the-grid
+sources:
+  - https://github.com/deepsquare-io/the-grid
+version: 0.1.0
+appVersion: '0.1.0'
+maintainers:
+  - name: Marc Nguyen
+    email: marc@squarefactory.io

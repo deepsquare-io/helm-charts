@@ -1,11 +1,11 @@
 image:
-  repository: ghcr.io/deepsquare-io/smart-contracts-exporter
+  repository: ghcr.io/deepsquare-io/meta-scheduler
   # tag defaults to AppVersion
   tag: ''
 
 imagePullPolicy: 'IfNotPresent'
 
-replicas: 1
+replicas: 3
 
 strategy:
   type: RollingUpdate
@@ -19,28 +19,36 @@ labels: {}
 config:
   debug: false
 
-  prometheusURL: 'https://prometheus.example.com'
-
   metascheduler:
     smartContract: '0x3a97E2ddD148647E60b4b94BdAD56173072Aa925'
 
-  avax:
+  eth:
+    privateKeyRef:
+      secretName: 'metascheduler-secret'
+      key: ETH_PRIVATE_KEY
+
     endpoint:
       rpc: 'https://testnet.deepsquare.run/rpc'
       ws: 'wss://testnet.deepsquare.run/ws'
 
-  checkpoint:
-    persistence:
-      enabled: true
-      labels: {}
-      annotations: {}
-      finalizers:
-        - kubernetes.io/pvc-protection
+  etcd:
+    prefix: meta-scheduler/production
+    endpoints: 'http://etcd-0:2379,http://etcd-1:2379'
+    user: meta-scheduler
+    passwordRef:
+      secretName: 'metascheduler-secret'
+      key: ETCD_PASSWORD
 
-      # storageClassName: default
-      accessModes:
-        - ReadWriteOnce
-      size: 100Mi
+    ca: '' # /path/to/ca.crt
+
+    ## Client to server encryption
+    cert: '' # /path/to/tls.crt
+    key: '' # /path/to/tls.key
+
+    ## Use HTTP instead of HTTPS
+    insecure: false
+    ## Do not check TLS certificates
+    skipTLS: false
 
 resources:
   {}
@@ -55,8 +63,6 @@ volumeMounts:
   []
   # - name: certs
   #   mountPath: /tls
-  # - name: oracletls
-  #   mountPath: /oracletls
 
 # Extra volumes
 volumes:
@@ -65,9 +71,6 @@ volumes:
   #   secret:
   #     secretName: cert-secret
   #     defaultMode: 384 # 0600
-  # - name: oracletls
-  #   secret:
-  #     secretName: oracletls
 
 ## Use an alternate scheduler.
 ## ref: https://kubernetes.io/docs/tasks/administer-cluster/configure-multiple-schedulers/
@@ -112,34 +115,6 @@ service:
   enabled: true
   type: ClusterIP
 
-serviceMonitor:
-  ## If true, a ServiceMonitor CRD is created for a prometheus operator
-  ## https://github.com/coreos/prometheus-operator
-  ##
-  enabled: false
-  path: /metrics
-  labels: {}
-  interval: 1m
-  scheme: http
-  tlsConfig: {}
-  scrapeTimeout: 30s
-  relabelings: []
-  targetLabels: []
-
-extraExposePorts:
-  []
-  # - name: keycloak
-  #   port: 8080
-  #   targetPort: 8080
-  #   type: ClusterIP
-
-# overrides pod.spec.hostAliases in the grafana deployment's pods
-hostAliases:
-  []
-  # - ip: "1.2.3.4"
-  #   hostnames:
-  #     - "my.host.com"
-
 ingress:
   enabled: false
   ingressClass: ''
@@ -148,15 +123,15 @@ ingress:
 
   hosts:
     []
-    # - smart-contracts-exporter.example.com
+    # - meta-scheduler.example.com
 
   path: /
 
   tls:
     []
-    # - secretName: smart-contracts-exporter.example.com-secret
+    # - secretName: meta-scheduler.example.com-secret
     #   hosts:
-    #     - smart-contracts-exporter.example.com
+    #     - meta-scheduler.example.com
 
 ## Extra manifests
 extra: []

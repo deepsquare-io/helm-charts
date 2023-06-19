@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "{{ template "meta-scheduler.name" $ }}-env"
+  labels:
+    app: "{{ template "meta-scheduler.name" $ }}"
+data:
+  LISTEN_ADDRESS: ":3000"
+
+  METASCHEDULER_SMART_CONTRACT: "{{ .Values.config.metascheduler.smartContract }}"
+  METASCHEDULER_RPC: "{{ .Values.config.eth.endpoint.rpc }}"
+  METASCHEDULER_WS: "{{ .Values.config.eth.endpoint.ws }}"
+  #ETH_PRIVATE_KEY is a secret
+
+  DB_PREFIX: "{{ .Values.config.etcd.prefix }}"
+  ETCD_ENDPOINTS: "{{ .Values.config.etcd.endpoints }}"
+  ETCD_USER: "{{ .Values.config.etcd.user }}"
+  #ETCD_PASSWORD is a secret
+  ETCD_CA: "{{ .Values.config.etcd.ca }}"
+  ETCD_CERT: "{{ .Values.config.etcd.cert }}"
+  ETCD_KEY: "{{ .Values.config.etcd.key }}"
+  ETCD_INSECURE_TRANSPORT: "{{ .Values.config.etcd.insecure  | ternary "true" "false" }}"
+  ETCD_INSECURE_SKIP_TLS_VERIFY: "{{ .Values.config.etcd.skipTLS  | ternary "true" "false" }}"
+
+  DEBUG: "{{ .Values.config.debug  | ternary "true" "false" }}"

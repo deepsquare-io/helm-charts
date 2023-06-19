@@ -42,7 +42,7 @@ config:
       rpc: 'https://testnet.deepsquare.run/rpc'
       ws: 'wss://testnet.deepsquare.run/ws'
 
-    smartContract: '0x7a943eb620E9D0a2994b15E76fE9Bb1DA65c28F0'
+    smartContract: '0x3a97E2ddD148647E60b4b94BdAD56173072Aa925'
 
   sbatchService:
     endpoint: 'sbatch.deepsquare.run:443'
