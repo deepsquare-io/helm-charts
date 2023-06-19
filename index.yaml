@@ -97,6 +97,23 @@ entries:
     urls:
     - https://github.com/deepsquare-io/helm-charts/releases/download/chart-grid-logger-server-0.1.0/grid-logger-server-0.1.0.tgz
     version: 0.1.0
+  meta-scheduler:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2023-06-19T14:25:58.048436256Z"
+    description: The DeepSquare Grid meta-scheduler.
+    digest: 2f672b08d4e3e4fcef31b70e7b6dcd3aff3c2e91a5490a1b12247f4896384892
+    home: https://github.com/deepsquare-io/the-grid
+    maintainers:
+    - email: marc@squarefactory.io
+      name: Marc Nguyen
+    name: meta-scheduler
+    sources:
+    - https://github.com/deepsquare-io/the-grid
+    type: application
+    urls:
+    - https://github.com/deepsquare-io/helm-charts/releases/download/chart-meta-scheduler-0.1.0/meta-scheduler-0.1.0.tgz
+    version: 0.1.0
   sbatch-service:
   - apiVersion: v2
     appVersion: 0.5.0
@@ -497,4 +514,4 @@ entries:
     urls:
     - https://github.com/deepsquare-io/helm-charts/releases/download/chart-transfer-sh-0.1.0/transfer-sh-0.1.0.tgz
     version: 0.1.0
-generated: "2023-05-21T01:35:44.380943845Z"
+generated: "2023-06-19T14:25:58.332645679Z"
