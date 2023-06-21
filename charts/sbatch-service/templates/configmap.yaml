@@ -18,6 +18,7 @@ data:
   REDIS_TLS_ENABLE: "false"
 {{- end }}
 
+  LOGGER_WRITER_PATH: "{{ .Values.config.logger.writer.path }}"
   LOGGER_ENDPOINT: "{{ .Values.config.logger.endpoint }}"
 
   DEBUG: "{{ .Values.config.debug  | ternary "true" "false" }}"

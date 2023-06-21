@@ -31,6 +31,9 @@ config:
   logger:
     # Endpoint format is: host:port
     endpoint: ''
+    # Path of the writer on the compute nodes
+    writer:
+      path: '/usr/local/bin/grid-logger-writer'
 
 resources:
   {}
