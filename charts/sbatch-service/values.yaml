@@ -35,6 +35,14 @@ config:
     writer:
       path: '/usr/local/bin/grid-logger-writer'
 
+  hook:
+    pre:
+      ## Accepts a path to a file in which will be embedded at the beginning of the job.
+      path: ''
+    post:
+      ## Accepts a path to a file in which will be embedded at the ending of the job.
+      path: ''
+
 resources:
   {}
   # requests:

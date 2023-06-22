@@ -21,4 +21,7 @@ data:
   LOGGER_WRITER_PATH: "{{ .Values.config.logger.writer.path }}"
   LOGGER_ENDPOINT: "{{ .Values.config.logger.endpoint }}"
 
+  HOOK_PRE_PATH: "{{ .Values.config.hook.pre.path }}"
+  HOOK_POST_PATH: "{{ .Values.config.hook.post.path }}"
+
   DEBUG: "{{ .Values.config.debug  | ternary "true" "false" }}"
