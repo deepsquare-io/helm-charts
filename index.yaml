@@ -116,6 +116,26 @@ entries:
     version: 0.1.0
   sbatch-service:
   - apiVersion: v2
+    appVersion: 0.10.0
+    created: "2023-06-22T23:50:03.244920343Z"
+    dependencies:
+    - name: redis
+      repository: https://charts.bitnami.com/bitnami
+      version: 17.*
+    description: The SBatch hosting service.
+    digest: ffc853c0f201e6f2f0b29125510b36149b594016a9b0f34ba91b7a136861e44b
+    home: https://github.com/deepsquare-io/the-grid
+    maintainers:
+    - email: marc@squarefactory.io
+      name: Marc Nguyen
+    name: sbatch-service
+    sources:
+    - https://github.com/deepsquare-io/the-grid
+    type: application
+    urls:
+    - https://github.com/deepsquare-io/helm-charts/releases/download/chart-sbatch-service-0.4.0/sbatch-service-0.4.0.tgz
+    version: 0.4.0
+  - apiVersion: v2
     appVersion: 0.9.0
     created: "2023-06-21T16:56:19.637889134Z"
     dependencies:
@@ -534,4 +554,4 @@ entries:
     urls:
     - https://github.com/deepsquare-io/helm-charts/releases/download/chart-transfer-sh-0.1.0/transfer-sh-0.1.0.tgz
     version: 0.1.0
-generated: "2023-06-21T16:56:19.637953834Z"
+generated: "2023-06-22T23:50:03.244978743Z"
