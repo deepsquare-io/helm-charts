@@ -116,6 +116,26 @@ entries:
     version: 0.1.0
   sbatch-service:
   - apiVersion: v2
+    appVersion: 0.11.0
+    created: "2023-07-04T12:38:47.689789843Z"
+    dependencies:
+    - name: redis
+      repository: https://charts.bitnami.com/bitnami
+      version: 17.*
+    description: The SBatch hosting service.
+    digest: 1b30a647b581006dbf87100940247ba8279318d0712a5b3b003192b48ebbb743
+    home: https://github.com/deepsquare-io/the-grid
+    maintainers:
+    - email: marc@squarefactory.io
+      name: Marc Nguyen
+    name: sbatch-service
+    sources:
+    - https://github.com/deepsquare-io/the-grid
+    type: application
+    urls:
+    - https://github.com/deepsquare-io/helm-charts/releases/download/chart-sbatch-service-0.4.1/sbatch-service-0.4.1.tgz
+    version: 0.4.1
+  - apiVersion: v2
     appVersion: 0.10.0
     created: "2023-06-22T23:50:03.244920343Z"
     dependencies:
@@ -313,6 +333,22 @@ entries:
     - https://github.com/deepsquare-io/helm-charts/releases/download/chart-smart-contracts-exporter-0.1.0/smart-contracts-exporter-0.1.0.tgz
     version: 0.1.0
   supervisor:
+  - apiVersion: v2
+    appVersion: 0.4.0
+    created: "2023-07-04T12:38:47.830614272Z"
+    description: The DeepSquare Grid Supervisor for your cluster.
+    digest: 09da1c232f0cab68d10db62766972d32317290f2e7a76afea75b573bb7693568
+    home: https://github.com/deepsquare-io/the-grid
+    maintainers:
+    - email: marc@squarefactory.io
+      name: Marc Nguyen
+    name: supervisor
+    sources:
+    - https://github.com/deepsquare-io/the-grid
+    type: application
+    urls:
+    - https://github.com/deepsquare-io/helm-charts/releases/download/chart-supervisor-0.3.0/supervisor-0.3.0.tgz
+    version: 0.3.0
   - apiVersion: v2
     appVersion: 0.2.0
     created: "2023-03-24T16:07:53.463887188Z"
@@ -554,4 +590,4 @@ entries:
     urls:
     - https://github.com/deepsquare-io/helm-charts/releases/download/chart-transfer-sh-0.1.0/transfer-sh-0.1.0.tgz
     version: 0.1.0
-generated: "2023-06-22T23:50:03.244978743Z"
+generated: "2023-07-04T12:38:47.830706873Z"
