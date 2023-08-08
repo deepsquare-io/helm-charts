@@ -94,6 +94,9 @@ spec:
                   name: "{{ .Values.config.provider.privateKeyRef.secretName }}"
                   key: "{{ .Values.config.provider.privateKeyRef.key }}"
                   optional: false
+            {{- if .Values.env }}
+{{ toYaml .Values.env | indent 12 }}
+            {{- end }}
           volumeMounts:
             {{- if .Values.volumeMounts }}
 {{ toYaml .Values.volumeMounts | indent 12 }}

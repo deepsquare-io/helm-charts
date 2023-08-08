@@ -50,9 +50,10 @@ config:
       enable: true
       insecure: false
       ca: /etc/ssl/certs/ca-certificates.crt
-      serverHostOverride: 'sbatch.deepsquare.run'
 
   slurm:
+    ## Which slurm partition to use.
+    partition: main
     ## Set the SSH credentials.
     ##
     ## The admin user is either the root user, the SlurmUser (see slurm.conf) or
@@ -90,6 +91,12 @@ config:
       squeue: /usr/bin/squeue
       scontrol: /usr/bin/scontrol
 
+  ## Launch a benchmark when booting
+  benchmark:
+    image: 'registry-1.deepsquare.run#library/hpc-benchmarks:21.4-hpl'
+    singleNode: true
+    disable: false
+
   ## The specifications of the cluster
   ##
   ## nodes: the total number of nodes reported by SLURM
@@ -109,6 +116,12 @@ resources:
   #   memory: '256Mi'
   # limits:
   #   memory: '1Gi'
+
+# Extra env
+env:
+  []
+  # - name: KEY
+  #   value: VALUE
 
 # Extra volume mounts
 volumeMounts:
