@@ -95,7 +95,7 @@ config:
   benchmark:
     image: 'registry-1.deepsquare.run#library/hpc-benchmarks:21.4-hpl'
     singleNode: true
-    disable: false
+    disable: true
 
   ## The specifications of the cluster
   ##
