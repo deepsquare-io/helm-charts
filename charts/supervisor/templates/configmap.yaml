@@ -40,3 +40,4 @@ data:
   BENCHMARK_IMAGE: "{{ .Values.config.benchmark.image }}"
   BENCHMARK_SINGLE_NODE: "{{ .Values.config.benchmark.singleNode | ternary "true" "false" }}"
   BENCHMARK_DISABLE: "{{ .Values.config.benchmark.disable | ternary "true" "false" }}"
+  BENCHMARK_RUN_AS: "{{ .Values.config.benchmark.runAs }}"
