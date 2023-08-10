@@ -30,14 +30,11 @@ data:
   SLURM_SCANCEL_PATH: "{{ .Values.config.slurm.paths.scancel }}"
   SLURM_SQUEUE_PATH: "{{ .Values.config.slurm.paths.squeue }}"
   SLURM_SCONTROL_PATH: "{{ .Values.config.slurm.paths.scontrol }}"
+  SLURM_SINFO_PATH: "{{ .Values.config.slurm.paths.sinfo }}"
   SLURM_PARTITION: "{{ .Values.config.slurm.partition }}"
-
-  TOTAL_NODES: "{{ .Values.config.spec.nodes }}"
-  TOTAL_CPUS: "{{ .Values.config.spec.cpus }}"
-  TOTAL_GPUS: "{{ .Values.config.spec.gpus }}"
-  TOTAL_MEMORY: "{{ .Values.config.spec.memory }}"
 
   BENCHMARK_IMAGE: "{{ .Values.config.benchmark.image }}"
   BENCHMARK_SINGLE_NODE: "{{ .Values.config.benchmark.singleNode | ternary "true" "false" }}"
   BENCHMARK_DISABLE: "{{ .Values.config.benchmark.disable | ternary "true" "false" }}"
   BENCHMARK_RUN_AS: "{{ .Values.config.benchmark.runAs }}"
+  BENCHMARK_UNRESPONSIVE: "{{ .Values.config.benchmark.unresponsive | ternary "true" "false" }}"

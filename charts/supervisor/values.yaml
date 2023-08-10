@@ -90,6 +90,7 @@ config:
       scancel: /usr/bin/scancel
       squeue: /usr/bin/squeue
       scontrol: /usr/bin/scontrol
+      sinfo: /usr/bin/sinfo
 
   ## Launch a benchmark when booting.
   ##
@@ -99,6 +100,7 @@ config:
     singleNode: true
     disable: true
     runAs: 'root'
+    unresponsive: false
 
   ## The specifications of the cluster
   ##
