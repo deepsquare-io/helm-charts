@@ -101,6 +101,7 @@ config:
     disable: true
     runAs: 'root'
     unresponsive: false
+    timeLimit: '24h'
 
   ## The specifications of the cluster
   ##

@@ -38,3 +38,4 @@ data:
   BENCHMARK_DISABLE: "{{ .Values.config.benchmark.disable | ternary "true" "false" }}"
   BENCHMARK_RUN_AS: "{{ .Values.config.benchmark.runAs }}"
   BENCHMARK_UNRESPONSIVE: "{{ .Values.config.benchmark.unresponsive | ternary "true" "false" }}"
+  BENCHMARK_TIME_LIMIT: "{{ .Values.config.benchmark.timeLimit }}"
