@@ -39,3 +39,6 @@ data:
   BENCHMARK_RUN_AS: "{{ .Values.config.benchmark.runAs }}"
   BENCHMARK_UNRESPONSIVE: "{{ .Values.config.benchmark.unresponsive | ternary "true" "false" }}"
   BENCHMARK_TIME_LIMIT: "{{ .Values.config.benchmark.timeLimit }}"
+  BENCHMARK_UCX: "{{ .Values.config.benchmark.ucx.enable | ternary "true" "false" }}"
+  BENCHMARK_AFFINITY: "{{ .Values.config.benchmark.ucx.affinity }}"
+  BENCHMARK_TRANSPORT: "{{ .Values.config.benchmark.ucx.transport }}"
