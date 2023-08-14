@@ -181,13 +181,13 @@ tolerations: []
 
 livenessProbe:
   failureThreshold: 5
-  initialDelaySeconds: 30
+  initialDelaySeconds: 10
   periodSeconds: 10
   timeoutSeconds: 30
 
 readinessProbe:
   failureThreshold: 5
-  initialDelaySeconds: 30
+  initialDelaySeconds: 10
   periodSeconds: 10
   timeoutSeconds: 30
 
