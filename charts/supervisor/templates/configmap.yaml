@@ -42,3 +42,4 @@ data:
   BENCHMARK_UCX: "{{ .Values.config.benchmark.ucx.enable | ternary "true" "false" }}"
   BENCHMARK_AFFINITY: "{{ .Values.config.benchmark.ucx.affinity }}"
   BENCHMARK_TRANSPORT: "{{ .Values.config.benchmark.ucx.transport }}"
+  BENCHMARK_TRACE: "{{ .Values.config.benchmark.trace | ternary "true" "false" }}"

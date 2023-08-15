@@ -96,12 +96,17 @@ config:
   ##
   ## By launching a benchmark, the results will be registered to the blockchain.
   benchmark:
-    image: 'registry-1.deepsquare.run#library/hpc-benchmarks:21.4-hpl'
-    singleNode: true
     disable: true
+    image: 'registry-1.deepsquare.run#library/hpc-benchmarks:23.5'
+    singleNode: true
     runAs: 'root'
-    unresponsive: false
     timeLimit: '24h'
+
+    ## Submit the benchmark on unresponsive nodes
+    unresponsive: false
+
+    ## Enable benchmark trace (very verbose)
+    trace: false
 
     ## Use UCX transport for benchmarking
     ##
