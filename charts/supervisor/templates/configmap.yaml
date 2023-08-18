@@ -33,8 +33,10 @@ data:
   SLURM_SINFO_PATH: "{{ .Values.config.slurm.paths.sinfo }}"
   SLURM_PARTITION: "{{ .Values.config.slurm.partition }}"
 
-  BENCHMARK_IMAGE: "{{ .Values.config.benchmark.image }}"
-  BENCHMARK_SINGLE_NODE: "{{ .Values.config.benchmark.singleNode | ternary "true" "false" }}"
+  BENCHMARK_HPL_IMAGE: "{{ .Values.config.benchmark.hpl.image }}"
+  BENCHMARK_HPL_SINGLE_NODE: "{{ .Values.config.benchmark.hpl.singleNode | ternary "true" "false" }}"
+  BENCHMARK_OSU_IMAGE: "{{ .Values.config.benchmark.osu.image }}"
+  BENCHMARK_SPEEDTEST_IMAGE: "{{ .Values.config.benchmark.speedtest.image }}"
   BENCHMARK_DISABLE: "{{ .Values.config.benchmark.disable | ternary "true" "false" }}"
   BENCHMARK_RUN_AS: "{{ .Values.config.benchmark.runAs }}"
   BENCHMARK_UNRESPONSIVE: "{{ .Values.config.benchmark.unresponsive | ternary "true" "false" }}"

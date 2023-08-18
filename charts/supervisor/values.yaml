@@ -97,8 +97,6 @@ config:
   ## By launching a benchmark, the results will be registered to the blockchain.
   benchmark:
     disable: true
-    image: 'registry-1.deepsquare.run#library/hpc-benchmarks:23.5'
-    singleNode: true
     runAs: 'root'
     timeLimit: '24h'
 
@@ -107,6 +105,19 @@ config:
 
     ## Enable benchmark trace (very verbose)
     trace: false
+
+    ## Options for HPL benchmark
+    hpl:
+      image: 'registry-1.deepsquare.run#library/hpc-benchmarks:23.5'
+      singleNode: true
+
+    ## Options for OSU benchmark
+    osu:
+      image: 'registry-1.deepsquare.run#library/osu-benchmarks:latest'
+
+    ## Options for Speedtest benchmark
+    speedtest:
+      image: 'registry-1.docker.io#gists/speedtest-cli:1.2.0'
 
     ## Use UCX transport for benchmarking
     ##
