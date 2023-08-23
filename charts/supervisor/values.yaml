@@ -119,13 +119,17 @@ config:
     speedtest:
       image: 'registry-1.docker.io#gists/speedtest-cli:1.2.0'
 
+    ## Options for IOR benchmark
+    ior:
+      image: 'registry-1.deepsquare.run#library/ior-benchmarks:latest'
+
     ## Use UCX transport for benchmarking
     ##
     ## UCX can be used for RDMA and TCP.
     ## If set to false, default to OpenMPI transport, which is "shared memory, self, tcp".
     ucx:
       enable: false
-      ## Affinity is the NIC selector.
+      ## Affinity is the NIC selector for each node.
       ##
       ## Syntax is:
       ##  RDMA: mlx_0:1|mlx_0:1 which means node 1 will use device mlx_0 port 1 and node 2 will use device mlx_0 port 1.

@@ -36,6 +36,7 @@ data:
   BENCHMARK_HPL_IMAGE: "{{ .Values.config.benchmark.hpl.image }}"
   BENCHMARK_HPL_SINGLE_NODE: "{{ .Values.config.benchmark.hpl.singleNode | ternary "true" "false" }}"
   BENCHMARK_OSU_IMAGE: "{{ .Values.config.benchmark.osu.image }}"
+  BENCHMARK_IOR_IMAGE: "{{ .Values.config.benchmark.ior.image }}"
   BENCHMARK_SPEEDTEST_IMAGE: "{{ .Values.config.benchmark.speedtest.image }}"
   BENCHMARK_DISABLE: "{{ .Values.config.benchmark.disable | ternary "true" "false" }}"
   BENCHMARK_RUN_AS: "{{ .Values.config.benchmark.runAs }}"
