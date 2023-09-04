@@ -42,7 +42,10 @@ config:
       rpc: 'https://testnet.deepsquare.run/rpc'
       ws: 'wss://testnet.deepsquare.run/ws'
 
-    smartContract: '0x3a97E2ddD148647E60b4b94BdAD56173072Aa925'
+    ## Smart contract 0x address.
+    ##
+    ## Example: 0x3a97E2ddD148647E60b4b94BdAD56173072Aa925
+    smartContract: ''
 
     ## Prices of your infrastructure
     ##
