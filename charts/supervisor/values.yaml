@@ -140,6 +140,7 @@ config:
     ## Options for IOR benchmark
     ior:
       image: 'registry-1.deepsquare.run#library/ior-benchmarks:latest'
+      singleNode: true
 
     ## Use UCX transport for benchmarking
     ##
