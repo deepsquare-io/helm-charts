@@ -15,6 +15,10 @@ data:
   METASCHEDULER_ENDPOINT_RPC: "{{ .Values.config.metascheduler.endpoint.rpc }}"
   METASCHEDULER_ENDPOINT_WS: "{{ .Values.config.metascheduler.endpoint.ws }}"
   METASCHEDULER_SMART_CONTRACT: "{{ .Values.config.metascheduler.smartContract }}"
+  METASCHEDULER_CPU_PRICE_PER_MIN:  "{{ .Values.config.metascheduler.prices.cpuPerMin }}"
+  METASCHEDULER_GPU_PRICE_PER_MIN:  "{{ .Values.config.metascheduler.prices.gpuPerMin }}"
+  METASCHEDULER_MEM_PRICE_PER_MIN:  "{{ .Values.config.metascheduler.prices.memPerMin }}"
+  METASCHEDULER_LABELS: "{{ template "supervisor.metascheduler.labels" $ }}"
 
   SBATCH_ENDPOINT: "{{ .Values.config.sbatchService.endpoint }}"
   SBATCH_TLS_ENABLE: "{{ .Values.config.sbatchService.tls.enable | ternary "true" "false" }}"

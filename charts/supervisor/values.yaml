@@ -44,6 +44,21 @@ config:
 
     smartContract: '0x3a97E2ddD148647E60b4b94BdAD56173072Aa925'
 
+    ## Prices of your infrastructure
+    ##
+    ## Divide by 1e18 to get the normalized value.
+    prices:
+      ## CPU physical threads per min.
+      cpuPerMin: '950000000000000000'
+      ## GPU per min.
+      gpuPerMin: '8500000000000000000'
+      ## RAM (MB) per min.
+      memPerMin: '80000000000000'
+
+    labels:
+      {}
+      # os: linux
+
   sbatchService:
     endpoint: 'sbatch.deepsquare.run:443'
     tls:
