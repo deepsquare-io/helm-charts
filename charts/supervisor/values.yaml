@@ -19,8 +19,10 @@ labels: {}
 ## Use command to passs custom benchmark environment variables
 command: []
 #  - /app/supervisor
-#  - --benchmark.env NCCL_P2P_DISABLE=1 # Disable GPU-to-GPU transport
-#  - --benchmark.env NCCL_P2P_LEVEL=PHB # Or, prefer PHB transport over SYS
+#  - --benchmark.env
+#  - NCCL_P2P_DISABLE=1 # Disable GPU-to-GPU transport
+#  - --benchmark.env
+#  - NCCL_P2P_LEVEL=PHB # Or, prefer PHB transport over SYS
 
 config:
   ## Public address or address of the reverse proxy.
