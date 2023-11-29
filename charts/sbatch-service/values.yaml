@@ -19,6 +19,10 @@ labels: {}
 config:
   debug: true
 
+  metascheduler:
+    smartContract: '0x3a97E2ddD148647E60b4b94BdAD56173072Aa925'
+    url: 'https://testnet.deepsquare.run/rpc'
+
   redis:
     # If is empty, will used the included redis and tls will be disabled
     address: ''

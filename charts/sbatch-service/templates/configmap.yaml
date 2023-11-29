@@ -24,4 +24,7 @@ data:
   HOOK_PRE_PATH: "{{ .Values.config.hook.pre.path }}"
   HOOK_POST_PATH: "{{ .Values.config.hook.post.path }}"
 
+  METASCHEDULER_SMART_CONTRACT: "{{ .Values.config.metascheduler.smartContract }}"
+  METASCHEDULER_ENDPOINT_RPC: "{{ .Values.config.metascheduler.url }}"
+
   DEBUG: "{{ .Values.config.debug  | ternary "true" "false" }}"
