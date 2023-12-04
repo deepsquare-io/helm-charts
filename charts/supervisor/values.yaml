@@ -52,7 +52,7 @@ config:
 
     ## Smart contract 0x address.
     ##
-    ## Example: 0x3a97E2ddD148647E60b4b94BdAD56173072Aa925
+    ## Example: 0x68A606C58fA06fF6872c80d71A71Ab7506eCa44B
     smartContract: ''
 
     ## Prices of your infrastructure
