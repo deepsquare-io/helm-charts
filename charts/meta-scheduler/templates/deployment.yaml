@@ -83,6 +83,14 @@ spec:
             - configMapRef:
                 name: "{{ template "meta-scheduler.name" $ }}-env"
           env:
+            {{- if .Values.config.notifier.urls.secretName }}
+            - name: NOTIFIER_URLS
+              valueFrom:
+                secretKeyRef:
+                  name: "{{ .Values.config.notifier.urls.secretName }}"
+                  key: "{{ .Values.config.notifier.urls.key }}"
+                  optional: false
+            {{- end }}
             - name: ETCD_PASSWORD
               valueFrom:
                 secretKeyRef:

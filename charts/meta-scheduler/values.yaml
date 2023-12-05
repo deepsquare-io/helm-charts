@@ -22,6 +22,11 @@ config:
   metascheduler:
     smartContract: '0x68A606C58fA06fF6872c80d71A71Ab7506eCa44B'
 
+  notifier:
+    urls:
+      secretName: ''
+      key: NOTIFIER_URLS
+
   eth:
     privateKeyRef:
       secretName: 'metascheduler-secret'
