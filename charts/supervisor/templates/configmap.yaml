@@ -39,6 +39,8 @@ data:
 
   BENCHMARK_HPL_IMAGE: "{{ .Values.config.benchmark.hpl.image }}"
   BENCHMARK_HPL_SINGLE_NODE: "{{ .Values.config.benchmark.hpl.singleNode | ternary "true" "false" }}"
+  BENCHMARK_HPL_BLOCK_SIZE: "{{ .Values.config.benchmark.hpl.blockSize }}"
+  BENCHMARK_HPL_MEMORY_PERCENT: "{{ .Values.config.benchmark.hpl.memoryPercent }}"
   BENCHMARK_OSU_IMAGE: "{{ .Values.config.benchmark.osu.image }}"
   BENCHMARK_IOR_IMAGE: "{{ .Values.config.benchmark.ior.image }}"
   BENCHMARK_IOR_SINGLE_NODE: "{{ .Values.config.benchmark.ior.singleNode | ternary "true" "false" }}"

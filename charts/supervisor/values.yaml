@@ -136,6 +136,19 @@ config:
     hpl:
       image: 'registry-1.deepsquare.run#library/hpc-benchmarks:23.5'
       singleNode: true
+      ## The block size for the HPL benchmark.
+      ##
+      ## A compute unit (CPU/GPU) handle a block size. Try random value to find the best.
+      ##
+      ## 512 would be for a 3080 RTX.
+      ## 1024 would be for a A100.
+      blockSize: 512
+      ## The memory percent to use for the HPL benchmark.
+      ##
+      ## Memory allocated for the benchmark.
+      ## The smaller the value, the faster the benchmark.
+      ## The bigger the value, the more accurate the benchmark.
+      memoryPercent: 0.5
 
     ## Options for OSU benchmark
     osu:
