@@ -57,7 +57,8 @@ resources:
 
 # Extra volume mounts
 volumeMounts:
-  []
+  - name: tmp
+    mountPath: /tmp
   # - name: certs
   #   mountPath: /tls
   # - name: oracletls
@@ -65,7 +66,8 @@ volumeMounts:
 
 # Extra volumes
 volumes:
-  []
+  - name: tmp
+    emptyDir: {}
   # - name: certs
   #   secret:
   #     secretName: cert-secret
